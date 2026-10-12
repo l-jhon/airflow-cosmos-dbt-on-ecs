@@ -1,0 +1,19 @@
+{
+  "environment": "dev",
+  "dbt_profile_name": "demo-athena",
+  "dbt_project_path": "/opt/airflow/dags/dbt-models",
+  "dbt_manifest_uri": "s3://replace-me-manifest/manifest.json",
+  "dbt_athena_s3_staging_dir": "s3://replace-me-athena-staging/",
+  "dbt_athena_s3_tmp_table_dir": "s3://replace-me-athena-staging/tmp/",
+  "dbt_image_uri": "123456789012.dkr.ecr.us-east-1.amazonaws.com/airflow-cosmos-dbt-on-ecs-prod:latest",
+  "ecs_task_execution_role_arn": "arn:aws:iam::123456789012:role/airflow-cosmos-dbt-on-ecs-ecs-task-execution",
+  "ecs_task_role_arn": "arn:aws:iam::123456789012:role/airflow-cosmos-dbt-on-ecs-ecs-task",
+  "ecs_log_group": "/ecs/airflow-cosmos-dbt-on-ecs",
+  "ecs_network_configuration": {
+    "awsvpcConfiguration": {
+      "assignPublicIp": "ENABLED",
+      "securityGroups": ["sg-replace-me"],
+      "subnets": ["subnet-replace-me-a", "subnet-replace-me-b"]
+    }
+  }
+}

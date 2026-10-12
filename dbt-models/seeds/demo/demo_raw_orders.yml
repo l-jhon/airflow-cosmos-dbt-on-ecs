@@ -1,0 +1,27 @@
+version: 2
+
+seeds:
+  - name: demo_raw_orders
+    description: Synthetic raw order events used by the public ECS + Airflow dbt demo.
+    columns:
+      - name: order_id
+        description: Unique identifier for the order.
+        tests:
+          - not_null
+          - unique
+      - name: order_date
+        description: Calendar date when the order was placed.
+        tests:
+          - not_null
+      - name: customer_id
+        description: Synthetic customer identifier.
+        tests:
+          - not_null
+      - name: order_status
+        description: Raw order lifecycle state.
+        tests:
+          - not_null
+      - name: order_total_usd
+        description: Gross order amount in USD.
+        tests:
+          - not_null

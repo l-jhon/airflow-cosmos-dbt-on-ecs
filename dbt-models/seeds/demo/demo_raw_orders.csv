@@ -1,0 +1,6 @@
+order_id,order_date,customer_id,order_status,order_total_usd
+1001,2026-03-01,cust-001,paid,125.50
+1002,2026-03-01,cust-002,paid,98.25
+1003,2026-03-02,cust-001,paid,210.10
+1004,2026-03-02,cust-003,cancelled,33.00
+1005,2026-03-03,cust-004,paid,142.75

@@ -1,0 +1,27 @@
+version: 2
+
+models:
+  - name: stg_demo_orders
+    description: Cleaned demo orders with cancelled rows removed.
+    columns:
+      - name: order_id
+        description: Unique order identifier.
+        tests:
+          - not_null
+          - unique
+      - name: order_date
+        description: Date used for downstream aggregations.
+        tests:
+          - not_null
+      - name: customer_id
+        description: Synthetic customer identifier.
+        tests:
+          - not_null
+      - name: order_status
+        description: Lowercased lifecycle state.
+        tests:
+          - not_null
+      - name: order_total_usd
+        description: Cleaned order amount in USD.
+        tests:
+          - not_null

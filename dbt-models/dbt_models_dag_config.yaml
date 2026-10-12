@@ -1,0 +1,16 @@
+model_groups:
+  - name: demo_orders_pipeline
+    schedule: "0 6 * * *"
+    owner: "community-demo"
+    description: "Run the public Athena dbt demo in ECS."
+    tags: ["demo", "dbt", "athena", "ecs"]
+    max_active_tasks: 2
+    execution_strategy: sequential
+    ecs:
+      cpu: 1024
+      memory: 2048
+    tasks:
+      - id: demo_stage
+        select: "+path:models/demo/stage"
+      - id: demo_analytics
+        select: "path:models/demo/analytics"

@@ -1,0 +1,53 @@
+services:
+  airflow-db:
+    image: postgres:15
+    container_name: airflow-db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: airflow
+    ports:
+      - "5432:5432"
+
+  airflow:
+    image: airflow-dev
+    build:
+      context: .
+    container_name: airflow
+    restart: always
+    depends_on:
+      - airflow-db
+    environment:
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: "postgresql+psycopg2://postgres:postgres@airflow-db:5432/airflow"
+      AIRFLOW__CORE__EXECUTOR: "LocalExecutor"
+      AIRFLOW__CORE__LOAD_EXAMPLES: "False"
+      AIRFLOW_HOME: "/opt/airflow"
+      AIRFLOW__CORE__DAGBAG_IMPORT_TIMEOUT: "60"
+      AWS_CONFIG_FILE: "/home/airflow/.aws/config"
+      AWS_SSO_CACHE: "/home/airflow/.aws/sso/cache"
+      AWS_PROFILE: "${AWS_PROFILE:-demo-athena}"
+      AWS_REGION: "${AWS_REGION:-us-east-1}"
+      DBT_TARGET: "${DBT_TARGET:-dev}"
+      DBT_PROFILE_NAME: "${DBT_PROFILE_NAME:-demo-athena}"
+      DBT_PROJECT_PATH: "/opt/airflow/dags/dbt-models"
+      DBT_MANIFEST_URI: "${DBT_MANIFEST_URI:-/opt/airflow/dags/dbt-models/target/manifest.json}"
+      DBT_ATHENA_S3_STAGING_DIR: "${DBT_ATHENA_S3_STAGING_DIR:-}"
+      DBT_ATHENA_S3_TMP_TABLE_DIR: "${DBT_ATHENA_S3_TMP_TABLE_DIR:-}"
+    volumes:
+      - ./../dags:/opt/airflow/dags/
+      - ./../dbt-models:/opt/airflow/dags/dbt-models/
+      - ~/.aws:/home/airflow/.aws
+      - ./config/airflow-variables.json:/opt/airflow/airflow-variables.json
+    ports:
+      - "8080:8080"
+    command: bash -x init.sh
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "[ -f /opt/airflow/airflow-webserver.pid ]"
+        ]
+      interval: 30s
+      timeout: 30s
+      retries: 3

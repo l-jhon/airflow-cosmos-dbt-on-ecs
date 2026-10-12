@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "airflow-cosmos-dbt-on-ecs"
+version = "0.1.0"
+description = "Public Airflow + Cosmos dbt on ECS demo"
+authors = ["Open Source Demo <demo@example.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.12,<3.13"
+dbt-athena-community = "^1.9.2"
+PyYAML = "^6.0.2"
+python-dotenv = "^1.0.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

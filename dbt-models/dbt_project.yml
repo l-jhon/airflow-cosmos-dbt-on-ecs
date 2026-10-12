@@ -1,0 +1,46 @@
+name: "dbt_ecs_demo"
+version: "1.0.0"
+config-version: 2
+
+profile: "demo-athena"
+
+model-paths: ["models"]
+docs-paths: ["docs"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+target-path: "target"
+log-path: "logs"
+clean-targets:
+  - "target"
+  - "logs"
+  - "dbt_packages"
+
+models:
+  dbt_ecs_demo:
+    +enabled: false
+    +persist_docs:
+      relation: true
+      columns: true
+    demo:
+      +enabled: true
+      stage:
+        +schema: "{{ env_var('DBT_ATHENA_STAGE_SCHEMA', 'demo_stage') }}"
+        +materialized: table
+        +tags: ["demo", "stage"]
+      analytics:
+        +schema: "{{ env_var('DBT_ATHENA_ANALYTICS_SCHEMA', 'demo_analytics') }}"
+        +materialized: table
+        +tags: ["demo", "analytics"]
+
+seeds:
+  dbt_ecs_demo:
+    +enabled: false
+    +quote_columns: false
+    demo:
+      +enabled: true
+      demo_raw_orders:
+        +schema: "{{ env_var('DBT_ATHENA_RAW_SCHEMA', 'demo_raw') }}"

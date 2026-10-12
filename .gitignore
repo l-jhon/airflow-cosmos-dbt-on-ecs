@@ -1,0 +1,17 @@
+.DS_Store
+.env
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+dbt-models/logs/
+dbt-models/target/
+dbt-models/dbt_packages/
+
+airflow-local-runner/logs/
+
+.terraform/
+.terraform.lock.hcl
+terraform.tfstate
+terraform.tfstate.*
