@@ -18,7 +18,7 @@ COPY pyproject.toml ./
 
 RUN pip install --no-cache-dir "poetry==${POETRY_VERSION}" && \
     poetry config virtualenvs.create false && \
-    poetry install --no-interaction --no-ansi && \
+    poetry install --no-interaction --no-ansi --no-root && \
     pip uninstall -y poetry && \
     rm -rf /root/.cache ${POETRY_CACHE_DIR}
 
