@@ -43,6 +43,9 @@ data "aws_iam_policy_document" "ecs_data_access" {
       "s3:PutObject",
       "s3:DeleteObject",
       "s3:ListBucket",
+      "s3:GetBucketLocation",
+      "s3:AbortMultipartUpload",
+      "s3:ListMultipartUploadParts",
     ]
     resources = local.s3_data_resources
   }
