@@ -204,6 +204,9 @@ terraform apply \
 - The demo uses Athena/Glue and public subnets with public IPs for task egress. For
   production, prefer private subnets with NAT or VPC endpoints.
 - The IAM policies are scoped for a demo; review them before production use.
+- On a brand-new AWS account, the first ECS cluster creation can fail transiently with
+  `Unable to assume the service linked role` while AWS provisions `AWSServiceRoleForECS`.
+  Re-run the task and it succeeds.
 
 ## License
 
