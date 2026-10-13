@@ -8,6 +8,7 @@ __pycache__/
 dbt-models/logs/
 dbt-models/target/
 dbt-models/dbt_packages/
+dbt-models/.user.yml
 
 airflow-local-runner/logs/
 
