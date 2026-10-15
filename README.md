@@ -14,7 +14,7 @@ GitHub Actions CI/CD with AWS OIDC, and Terraform for the AWS layer.
 A very common pain point is running dbt **inside the Airflow worker** (LocalExecutor,
 Celery worker, or MWAA worker). dbt is memory-hungry, installs a wide dependency
 tree into the Airflow environment, and competes with the scheduler for the same
-resources — so a heavy `dbt build` can starve the orchestrator and every other DAG.
+resources, so a heavy `dbt build` can starve the orchestrator and every other DAG.
 
 This project moves the dbt execution off the Airflow worker entirely: Airflow only
 orchestrates, and each dbt selection runs as an isolated ECS Fargate task on its own
@@ -26,7 +26,7 @@ container image.
   registers the task definition when it runs, then deregisters and deletes them at
   the end. You keep an image in ECR; everything else is ephemeral.
 - **YAML-driven pipeline factory.** `dbt-models/dbt_dag_factory.py` turns a small
-  YAML file into a fully wired Airflow DAG — no hand-written Cosmos boilerplate.
+  YAML file into a fully wired Airflow DAG, no hand-written Cosmos boilerplate.
 - **Manifest-driven rendering.** Cosmos renders task groups from `manifest.json`
   (pushed to S3 by CD), so the DAG structure always reflects the compiled dbt project.
 - **Two clean execution halves.** Airflow parses the manifest; the Fargate container
@@ -69,7 +69,7 @@ flowchart TB
 
 ## See it in action
 
-The generated DAG topology — the ECS cluster lifecycle wrapping the Cosmos dbt task
+The generated DAG topology. The ECS cluster lifecycle wraps the Cosmos dbt task
 groups, with the cluster and task definition created at runtime:
 
 ![Airflow DAG topology](docs/airflow-dag-topology.png)
