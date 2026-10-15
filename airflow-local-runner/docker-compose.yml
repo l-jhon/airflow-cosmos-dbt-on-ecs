@@ -8,7 +8,7 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: airflow
     ports:
-      - "5432:5432"
+      - "${AIRFLOW_DB_PORT:-5432}:5432"
 
   airflow:
     image: airflow-dev

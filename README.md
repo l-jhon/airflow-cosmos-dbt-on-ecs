@@ -67,6 +67,17 @@ flowchart TB
     CD --> S
 ```
 
+## See it in action
+
+The generated DAG topology — the ECS cluster lifecycle wrapping the Cosmos dbt task
+groups, with the cluster and task definition created at runtime:
+
+![Airflow DAG topology](docs/airflow-dag-topology.png)
+
+A completed run with the Cosmos task groups expanded into per-node dbt tasks:
+
+![Airflow DAG run with dbt task groups expanded](docs/airflow-dag.png)
+
 ## Repository layout
 
 ```text
@@ -77,6 +88,7 @@ flowchart TB
 │   └── utils/ecs_utils.py    # create/register/run/deregister/delete ECS operators
 ├── dbt-models/               # dbt project + YAML→DAG factory + Dockerfile
 ├── infra/terraform/          # network, S3, Glue, IAM, GitHub OIDC, optional MWAA
+├── docs/                     # screenshots used in this README
 └── .github/workflows/        # CI (dbt build/test) and CD (image + manifest)
 ```
 
