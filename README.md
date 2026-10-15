@@ -9,6 +9,8 @@ This project is a self-contained, public reference implementation. It ships a
 working dbt project (Athena), an Airflow local runner, a YAML → DAG factory,
 GitHub Actions CI/CD with AWS OIDC, and Terraform for the AWS layer.
 
+![Before: Cosmos runs dbt on the Airflow worker. After: the same Cosmos DAG runs dbt on ephemeral ECS Fargate.](docs/overview.png)
+
 ## Why this exists
 
 A very common pain point is running dbt **inside the Airflow worker** (LocalExecutor,
