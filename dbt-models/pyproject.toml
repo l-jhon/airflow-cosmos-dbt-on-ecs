@@ -2,7 +2,7 @@
 name = "airflow-cosmos-dbt-on-ecs"
 version = "0.1.0"
 description = "Public Airflow + Cosmos dbt on ECS demo"
-authors = ["Open Source Demo <demo@example.com>"]
+authors = ["Jhon Lucas <jhonlucaslife@gmail.com>"]
 readme = "README.md"
 package-mode = false
 
