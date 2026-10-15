@@ -213,8 +213,16 @@ terraform apply \
 
 - Compute is intentionally ephemeral, so there is a small per-run cost of cluster
   create/delete. The trade-off is zero idle infrastructure.
-- The demo uses Athena/Glue and public subnets with public IPs for task egress. For
-  production, prefer private subnets with NAT or VPC endpoints.
+- **Networking / egress.** Tasks run in public subnets with public IPs and egress via
+  an Internet Gateway. This is deliberate: NAT Gateways add an hourly charge plus a
+  per-GB data-processing fee that adds up quickly for data-heavy pipelines (for example
+  pulling large public datasets). The tasks are ephemeral, stateless, and have no
+  inbound security-group rules, so the public IP is used only for outbound traffic and
+  is not reachable from the internet.
+- Choose private subnets with NAT or VPC endpoints when you need egress filtering,
+  private-only compliance, or egress auditing. If most traffic goes to AWS services,
+  gateway endpoints for S3/DynamoDB are free and can remove the NAT requirement
+  entirely.
 - The IAM policies are scoped for a demo; review them before production use.
 - On a brand-new AWS account, the first ECS cluster creation can fail transiently with
   `Unable to assume the service linked role` while AWS provisions `AWSServiceRoleForECS`.
